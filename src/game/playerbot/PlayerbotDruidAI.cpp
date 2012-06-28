@@ -212,15 +212,15 @@ CombatManeuverReturns PlayerbotDruidAI::DoNextCombatManeuver(Unit *pTarget)
             CastSpell(BASH, pTarget);
         if (CHALLENGING_ROAR > 0 && pVictim != m_bot && DruidSpellCombat < 6 && !pTarget->HasAura(CHALLENGING_ROAR, EFFECT_INDEX_0) && !pTarget->HasAura(GROWL, EFFECT_INDEX_0) && m_ai->GetRageAmount() >= 15)
             CastSpell(CHALLENGING_ROAR, pTarget);
-        if (ROOTS > 0 && DruidSpellCombat < 3 && !pTarget->HasAura(ROOTS, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 8)
+        if (ROOTS > 0 && DruidSpellCombat < 3 && !pTarget->HasAura(ROOTS, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 8)
             CastSpell(ROOTS, pTarget);
 
-        if (HURRICANE > 0 && m_ai->GetAttackerCount() >= 5 && DruidSpellCombat < 4 && m_ai->GetManaPercent() >= 91)
+        if (HURRICANE > 0 && m_ai->GetAttackerCount() >= 5 && DruidSpellCombat < 4 && m_ai->GetBaseManaPercent() >= 91)
         {
             CastSpell(HURRICANE, pTarget);
             m_ai->SetIgnoreUpdateTime(10);
         }
-        if (STARFALL > 0 && !m_bot->HasAura(STARFALL, EFFECT_INDEX_0) && m_ai->GetAttackerCount() >= 3 && DruidSpellCombat < 9 && m_ai->GetManaPercent() >= 39)
+        if (STARFALL > 0 && !m_bot->HasAura(STARFALL, EFFECT_INDEX_0) && m_ai->GetAttackerCount() >= 3 && DruidSpellCombat < 9 && m_ai->GetBaseManaPercent() >= 39)
             CastSpell(STARFALL, pTarget);
 
         if (BARKSKIN > 0 && pVictim == m_bot && m_ai->GetHealthPercent() < 75 && DruidSpellCombat < 10 && !m_bot->HasAura(BARKSKIN, EFFECT_INDEX_0))
@@ -360,33 +360,33 @@ CombatManeuverReturns PlayerbotDruidAI::_DoNextPVECombatManeuverSpellDPS(Unit* p
     uint32 NATURE = (STARFIRE > 0 ? STARFIRE : WRATH);
 
     if (FAERIE_FIRE > 0 && !pTarget->HasAura(FAERIE_FIRE, EFFECT_INDEX_0))
-        if (m_ai->GetManaPercent() < 8 || CastSpell(FAERIE_FIRE, pTarget))
+        if (m_ai->GetBaseManaPercent() < 8 || CastSpell(FAERIE_FIRE, pTarget))
             return RETURN_CONTINUE;
 
     if (MOONFIRE > 0 && !pTarget->HasAura(MOONFIRE, EFFECT_INDEX_0))
-        if (m_ai->GetManaPercent() < 24 || CastSpell(MOONFIRE, pTarget))
+        if (m_ai->GetBaseManaPercent() < 24 || CastSpell(MOONFIRE, pTarget))
             return RETURN_CONTINUE;
 
     if (INSECT_SWARM > 0 && !pTarget->HasAura(INSECT_SWARM, EFFECT_INDEX_0))
-        if (m_ai->GetManaPercent() < 9 || CastSpell(INSECT_SWARM, pTarget))
+        if (m_ai->GetBaseManaPercent() < 9 || CastSpell(INSECT_SWARM, pTarget))
             return RETURN_CONTINUE;
 
     // TODO: Doesn't work, I can't seem to nail the aura/effect index that would make this work properly
     if (ECLIPSE_SOLAR > 0 && WRATH > 0 && m_bot->HasAura(ECLIPSE_SOLAR))
-        if (m_ai->GetManaPercent() < 13 || CastSpell(WRATH, pTarget))
+        if (m_ai->GetBaseManaPercent() < 13 || CastSpell(WRATH, pTarget))
             return RETURN_CONTINUE;
 
     // TODO: Doesn't work, I can't seem to nail the aura/effect index that would make this work properly
     if (ECLIPSE_LUNAR > 0 && STARFIRE > 0 && m_bot->HasAura(ECLIPSE_LUNAR))
-        if (m_ai->GetManaPercent() < 18 || CastSpell(STARFIRE, pTarget))
+        if (m_ai->GetBaseManaPercent() < 18 || CastSpell(STARFIRE, pTarget))
             return RETURN_CONTINUE;
 
     if (FORCE_OF_NATURE > 0)
-        if (m_ai->GetManaPercent() < 12 || CastSpell(FORCE_OF_NATURE))
+        if (m_ai->GetBaseManaPercent() < 12 || CastSpell(FORCE_OF_NATURE))
             return RETURN_CONTINUE;
 
     if (NATURE > 0)
-        if (m_ai->GetManaPercent() < 18 || CastSpell(NATURE, pTarget))
+        if (m_ai->GetBaseManaPercent() < 18 || CastSpell(NATURE, pTarget))
             return RETURN_CONTINUE;
 
     Unit* pVictim = pTarget->getVictim();

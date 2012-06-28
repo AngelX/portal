@@ -204,7 +204,7 @@ CombatManeuverReturns PlayerbotWarlockAI::DoNextCombatManeuver(Unit *pTarget)
                 return CastSpell(SHADOW_BOLT, pTarget);
             break;
 
-            //if (LIFE_TAP && LastSpellAffliction < 1 && m_ai->GetManaPercent() <= 50 && m_ai->GetHealthPercent() > 50)
+            //if (LIFE_TAP && LastSpellAffliction < 1 && m_ai->GetBaseManaPercent() <= 50 && m_ai->GetHealthPercent() > 50)
             //    m_ai->CastSpell(LIFE_TAP, *m_bot);
             //    SpellSequence = SPELL_DESTRUCTION;
             //else if (DRAIN_SOUL && pTarget->GetHealth() < pTarget->GetMaxHealth() * 0.40 && !pTarget->HasAura(DRAIN_SOUL) && LastSpellAffliction < 3)
@@ -227,7 +227,7 @@ CombatManeuverReturns PlayerbotWarlockAI::DoNextCombatManeuver(Unit *pTarget)
             //    //m_ai->TellMaster("casting fear!");
             //    //m_ai->SetIgnoreUpdateTime(1.5);
             //    SpellSequence = SPELL_DESTRUCTION;
-            //else if ((pet) && (DARK_PACT > 0 && m_ai->GetManaPercent() <= 50 && LastSpellAffliction < 10 && pet->GetPower(POWER_MANA) > 0))
+            //else if ((pet) && (DARK_PACT > 0 && m_ai->GetBaseManaPercent() <= 50 && LastSpellAffliction < 10 && pet->GetPower(POWER_MANA) > 0))
             //    m_ai->CastSpell(DARK_PACT, *m_bot);
             //    SpellSequence = SPELL_DESTRUCTION;
             //if (SHADOWFURY && LastSpellDestruction < 1 && !pTarget->HasAura(SHADOWFURY))
@@ -276,7 +276,7 @@ CombatManeuverReturns PlayerbotWarlockAI::DoNextCombatManeuver(Unit *pTarget)
         return CastSpell(SHADOW_BOLT, pTarget);
 
     // definitely not out of mana - TODO: someone removed all mana checks from the spells - shadowbolt uses less than 20% right?
-    if (m_ai->GetManaPercent() > 20)
+    if (m_ai->GetBaseManaPercent() > 20)
     {
         m_ai->TellMaster("Couldn't find an appropriate spell.");
         return RETURN_NO_ACTION_UNKNOWN;

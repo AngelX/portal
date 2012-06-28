@@ -106,7 +106,7 @@ CombatManeuverReturns PlayerbotHunterAI::DoNextCombatManeuver(Unit *pTarget)
     Pet *pet = m_bot->GetPet();
     if ((pet)
         && (((float) pet->GetHealth() / (float) pet->GetMaxHealth()) < 0.5f)
-        && (PET_MEND > 0 && !pet->getDeathState() != ALIVE && pVictim != m_bot && !pet->HasAura(PET_MEND, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 13 && m_ai->CastSpell(PET_MEND, *m_bot)))
+        && (PET_MEND > 0 && !pet->getDeathState() != ALIVE && pVictim != m_bot && !pet->HasAura(PET_MEND, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 13 && m_ai->CastSpell(PET_MEND, *m_bot)))
     {
         m_ai->TellMaster("healing pet.");
         return RETURN_CONTINUE;
@@ -162,35 +162,35 @@ CombatManeuverReturns PlayerbotHunterAI::DoNextCombatManeuver(Unit *pTarget)
     if (m_rangedCombat)
     {
         out << "Case Ranged";
-        if (HUNTERS_MARK > 0 && m_ai->GetManaPercent() >= 3 && !pTarget->HasAura(HUNTERS_MARK, EFFECT_INDEX_0) && m_ai->CastSpell(HUNTERS_MARK, *pTarget))
+        if (HUNTERS_MARK > 0 && m_ai->GetBaseManaPercent() >= 3 && !pTarget->HasAura(HUNTERS_MARK, EFFECT_INDEX_0) && m_ai->CastSpell(HUNTERS_MARK, *pTarget))
             return RETURN_CONTINUE;
-        else if (RAPID_FIRE > 0 && m_ai->GetManaPercent() >= 3 && !m_bot->HasAura(RAPID_FIRE, EFFECT_INDEX_0) && m_ai->CastSpell(RAPID_FIRE, *m_bot))
+        else if (RAPID_FIRE > 0 && m_ai->GetBaseManaPercent() >= 3 && !m_bot->HasAura(RAPID_FIRE, EFFECT_INDEX_0) && m_ai->CastSpell(RAPID_FIRE, *m_bot))
             return RETURN_CONTINUE;
-        else if (MULTI_SHOT > 0 && m_ai->GetManaPercent() >= 13 && m_ai->GetAttackerCount() >= 3 && m_ai->CastSpell(MULTI_SHOT, *pTarget))
+        else if (MULTI_SHOT > 0 && m_ai->GetBaseManaPercent() >= 13 && m_ai->GetAttackerCount() >= 3 && m_ai->CastSpell(MULTI_SHOT, *pTarget))
             return RETURN_CONTINUE;
-        else if (ARCANE_SHOT > 0 && m_ai->GetManaPercent() >= 7 && m_ai->CastSpell(ARCANE_SHOT, *pTarget))
+        else if (ARCANE_SHOT > 0 && m_ai->GetBaseManaPercent() >= 7 && m_ai->CastSpell(ARCANE_SHOT, *pTarget))
             return RETURN_CONTINUE;
-        else if (CONCUSSIVE_SHOT > 0 && m_ai->GetManaPercent() >= 6 && !pTarget->HasAura(CONCUSSIVE_SHOT, EFFECT_INDEX_0) && m_ai->CastSpell(CONCUSSIVE_SHOT, *pTarget))
+        else if (CONCUSSIVE_SHOT > 0 && m_ai->GetBaseManaPercent() >= 6 && !pTarget->HasAura(CONCUSSIVE_SHOT, EFFECT_INDEX_0) && m_ai->CastSpell(CONCUSSIVE_SHOT, *pTarget))
             return RETURN_CONTINUE;
-        else if (EXPLOSIVE_SHOT > 0 && m_ai->GetManaPercent() >= 10 && !pTarget->HasAura(EXPLOSIVE_SHOT, EFFECT_INDEX_0) && m_ai->CastSpell(EXPLOSIVE_SHOT, *pTarget))
+        else if (EXPLOSIVE_SHOT > 0 && m_ai->GetBaseManaPercent() >= 10 && !pTarget->HasAura(EXPLOSIVE_SHOT, EFFECT_INDEX_0) && m_ai->CastSpell(EXPLOSIVE_SHOT, *pTarget))
             return RETURN_CONTINUE;
-        else if (VIPER_STING > 0 && m_ai->GetManaPercent() >= 8 && pTarget->GetPower(POWER_MANA) > 0 && m_ai->GetManaPercent() < 70 && !pTarget->HasAura(VIPER_STING, EFFECT_INDEX_0) && m_ai->CastSpell(VIPER_STING, *pTarget))
+        else if (VIPER_STING > 0 && m_ai->GetBaseManaPercent() >= 8 && pTarget->GetPower(POWER_MANA) > 0 && m_ai->GetManaPercent() < 70 && !pTarget->HasAura(VIPER_STING, EFFECT_INDEX_0) && m_ai->CastSpell(VIPER_STING, *pTarget))
             return RETURN_CONTINUE;
-        else if (SERPENT_STING > 0 && m_ai->GetManaPercent() >= 13 && !pTarget->HasAura(SERPENT_STING, EFFECT_INDEX_0) && !pTarget->HasAura(SCORPID_STING, EFFECT_INDEX_0) &&  !pTarget->HasAura(VIPER_STING, EFFECT_INDEX_0) && m_ai->CastSpell(SERPENT_STING, *pTarget))
+        else if (SERPENT_STING > 0 && m_ai->GetBaseManaPercent() >= 13 && !pTarget->HasAura(SERPENT_STING, EFFECT_INDEX_0) && !pTarget->HasAura(SCORPID_STING, EFFECT_INDEX_0) &&  !pTarget->HasAura(VIPER_STING, EFFECT_INDEX_0) && m_ai->CastSpell(SERPENT_STING, *pTarget))
             return RETURN_CONTINUE;
-        else if (SCORPID_STING > 0 && m_ai->GetManaPercent() >= 11 && !pTarget->HasAura(WYVERN_STING, EFFECT_INDEX_0) && !pTarget->HasAura(SCORPID_STING, EFFECT_INDEX_0) && !pTarget->HasAura(SERPENT_STING, EFFECT_INDEX_0) && !pTarget->HasAura(VIPER_STING, EFFECT_INDEX_0) && m_ai->CastSpell(SCORPID_STING, *pTarget))
+        else if (SCORPID_STING > 0 && m_ai->GetBaseManaPercent() >= 11 && !pTarget->HasAura(WYVERN_STING, EFFECT_INDEX_0) && !pTarget->HasAura(SCORPID_STING, EFFECT_INDEX_0) && !pTarget->HasAura(SERPENT_STING, EFFECT_INDEX_0) && !pTarget->HasAura(VIPER_STING, EFFECT_INDEX_0) && m_ai->CastSpell(SCORPID_STING, *pTarget))
             return RETURN_CONTINUE;
-        else if (CHIMERA_SHOT > 0 && m_ai->GetManaPercent() >= 12 && m_ai->CastSpell(CHIMERA_SHOT, *pTarget))
+        else if (CHIMERA_SHOT > 0 && m_ai->GetBaseManaPercent() >= 12 && m_ai->CastSpell(CHIMERA_SHOT, *pTarget))
             return RETURN_CONTINUE;
-        else if (VOLLEY > 0 && m_ai->GetManaPercent() >= 24 && m_ai->GetAttackerCount() >= 3 && m_ai->CastSpell(VOLLEY, *pTarget))
+        else if (VOLLEY > 0 && m_ai->GetBaseManaPercent() >= 24 && m_ai->GetAttackerCount() >= 3 && m_ai->CastSpell(VOLLEY, *pTarget))
             return RETURN_CONTINUE;
-        else if (BLACK_ARROW > 0 && m_ai->GetManaPercent() >= 6 && !pTarget->HasAura(BLACK_ARROW, EFFECT_INDEX_0) && m_ai->CastSpell(BLACK_ARROW, *pTarget))
+        else if (BLACK_ARROW > 0 && m_ai->GetBaseManaPercent() >= 6 && !pTarget->HasAura(BLACK_ARROW, EFFECT_INDEX_0) && m_ai->CastSpell(BLACK_ARROW, *pTarget))
             return RETURN_CONTINUE;
-        else if (AIMED_SHOT > 0 && m_ai->GetManaPercent() >= 12 && m_ai->CastSpell(AIMED_SHOT, *pTarget))
+        else if (AIMED_SHOT > 0 && m_ai->GetBaseManaPercent() >= 12 && m_ai->CastSpell(AIMED_SHOT, *pTarget))
             return RETURN_CONTINUE;
-        else if (STEADY_SHOT > 0 && m_ai->GetManaPercent() >= 5 && m_ai->CastSpell(STEADY_SHOT, *pTarget))
+        else if (STEADY_SHOT > 0 && m_ai->GetBaseManaPercent() >= 5 && m_ai->CastSpell(STEADY_SHOT, *pTarget))
             return RETURN_CONTINUE;
-        else if (KILL_SHOT > 0 && m_ai->GetManaPercent() >= 7 && pTarget->GetHealth() < pTarget->GetMaxHealth() * 0.2 && m_ai->CastSpell(KILL_SHOT, *pTarget))
+        else if (KILL_SHOT > 0 && m_ai->GetBaseManaPercent() >= 7 && pTarget->GetHealth() < pTarget->GetMaxHealth() * 0.2 && m_ai->CastSpell(KILL_SHOT, *pTarget))
             return RETURN_CONTINUE;
         else
             out << " NONE!";
@@ -198,17 +198,17 @@ CombatManeuverReturns PlayerbotHunterAI::DoNextCombatManeuver(Unit *pTarget)
     else
     {
         out << "Case Melee";
-        if (RAPTOR_STRIKE > 0 && m_ai->GetManaPercent() >= 6 && m_ai->CastSpell(RAPTOR_STRIKE, *pTarget))
+        if (RAPTOR_STRIKE > 0 && m_ai->GetBaseManaPercent() >= 6 && m_ai->CastSpell(RAPTOR_STRIKE, *pTarget))
             return RETURN_CONTINUE;
-        else if (EXPLOSIVE_TRAP > 0 && m_ai->GetManaPercent() >= 27 && !pTarget->HasAura(EXPLOSIVE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(ARCANE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(IMMOLATION_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(FROST_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(BEAR_TRAP, EFFECT_INDEX_0) && m_ai->CastSpell(EXPLOSIVE_TRAP, *pTarget))
+        else if (EXPLOSIVE_TRAP > 0 && m_ai->GetBaseManaPercent() >= 27 && !pTarget->HasAura(EXPLOSIVE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(ARCANE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(IMMOLATION_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(FROST_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(BEAR_TRAP, EFFECT_INDEX_0) && m_ai->CastSpell(EXPLOSIVE_TRAP, *pTarget))
             return RETURN_CONTINUE;
-        else if (WING_CLIP > 0 && m_ai->GetManaPercent() >= 6 && !pTarget->HasAura(WING_CLIP, EFFECT_INDEX_0) && m_ai->CastSpell(WING_CLIP, *pTarget))
+        else if (WING_CLIP > 0 && m_ai->GetBaseManaPercent() >= 6 && !pTarget->HasAura(WING_CLIP, EFFECT_INDEX_0) && m_ai->CastSpell(WING_CLIP, *pTarget))
             return RETURN_CONTINUE;
-        else if (IMMOLATION_TRAP > 0 && m_ai->GetManaPercent() >= 13 && !pTarget->HasAura(IMMOLATION_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(ARCANE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(EXPLOSIVE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(FROST_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(BEAR_TRAP, EFFECT_INDEX_0) && m_ai->CastSpell(IMMOLATION_TRAP, *pTarget))
+        else if (IMMOLATION_TRAP > 0 && m_ai->GetBaseManaPercent() >= 13 && !pTarget->HasAura(IMMOLATION_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(ARCANE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(EXPLOSIVE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(FROST_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(BEAR_TRAP, EFFECT_INDEX_0) && m_ai->CastSpell(IMMOLATION_TRAP, *pTarget))
             return RETURN_CONTINUE;
-        else if (MONGOOSE_BITE > 0 && m_ai->GetManaPercent() >= 4 && m_ai->CastSpell(MONGOOSE_BITE, *pTarget))
+        else if (MONGOOSE_BITE > 0 && m_ai->GetBaseManaPercent() >= 4 && m_ai->CastSpell(MONGOOSE_BITE, *pTarget))
             return RETURN_CONTINUE;
-        else if (FROST_TRAP > 0 && m_ai->GetManaPercent() >= 2 && !pTarget->HasAura(FROST_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(ARCANE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(IMMOLATION_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(EXPLOSIVE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(BEAR_TRAP, EFFECT_INDEX_0) && m_ai->CastSpell(FROST_TRAP, *pTarget))
+        else if (FROST_TRAP > 0 && m_ai->GetBaseManaPercent() >= 2 && !pTarget->HasAura(FROST_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(ARCANE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(IMMOLATION_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(EXPLOSIVE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(BEAR_TRAP, EFFECT_INDEX_0) && m_ai->CastSpell(FROST_TRAP, *pTarget))
             return RETURN_CONTINUE;
         else if (ARCANE_TRAP > 0 && !pTarget->HasAura(ARCANE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(BEAR_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(EXPLOSIVE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(IMMOLATION_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(FROST_TRAP, EFFECT_INDEX_0) && m_ai->CastSpell(ARCANE_TRAP, *pTarget))
             return RETURN_CONTINUE;
@@ -225,13 +225,13 @@ CombatManeuverReturns PlayerbotHunterAI::DoNextCombatManeuver(Unit *pTarget)
         else if (m_bot->getRace() == RACE_DRAENEI && m_ai->GetHealthPercent() < 25 && !m_bot->HasAura(GIFT_OF_THE_NAARU, EFFECT_INDEX_0) && m_ai->CastSpell(GIFT_OF_THE_NAARU, *m_bot))
             return RETURN_CONTINUE;
         else if ((pet && !pet->getDeathState() != ALIVE)
-                 && (MISDIRECTION > 0 && pVictim == m_bot && !m_bot->HasAura(MISDIRECTION, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 9 && m_ai->CastSpell(MISDIRECTION, *pet)))
+                 && (MISDIRECTION > 0 && pVictim == m_bot && !m_bot->HasAura(MISDIRECTION, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 9 && m_ai->CastSpell(MISDIRECTION, *pet)))
             return RETURN_CONTINUE;
-        /*else if( FREEZING_TRAP>0 && m_ai->GetManaPercent()>=5 && !pTarget->HasAura(FREEZING_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(ARCANE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(EXPLOSIVE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(BEAR_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(IMMOLATION_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(FROST_TRAP, EFFECT_INDEX_0) && m_ai->CastSpell(FREEZING_TRAP,*pTarget) )
+        /*else if( FREEZING_TRAP>0 && m_ai->GetBaseManaPercent()>=5 && !pTarget->HasAura(FREEZING_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(ARCANE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(EXPLOSIVE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(BEAR_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(IMMOLATION_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(FROST_TRAP, EFFECT_INDEX_0) && m_ai->CastSpell(FREEZING_TRAP,*pTarget) )
             out << " > Freezing Trap"; // this can trap your bots too
            else if( BEAR_TRAP>0 && !pTarget->HasAura(BEAR_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(ARCANE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(EXPLOSIVE_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(IMMOLATION_TRAP, EFFECT_INDEX_0) && !pTarget->HasAura(FROST_TRAP, EFFECT_INDEX_0) && m_ai->CastSpell(BEAR_TRAP,*pTarget) )
             out << " > Bear Trap"; // this was just too annoying :)
-           else if( DISENGAGE>0 && pVictim && m_ai->GetManaPercent()>=5 && m_ai->CastSpell(DISENGAGE,*pTarget) )
+           else if( DISENGAGE>0 && pVictim && m_ai->GetBaseManaPercent()>=5 && m_ai->CastSpell(DISENGAGE,*pTarget) )
             out << " > Disengage!"; // attempt to return to ranged combat*/
     }
     if (m_ai->GetManager()->m_confDebugWhisper)
@@ -315,13 +315,14 @@ void PlayerbotHunterAI::DoNonCombatActions()
         else if (pet->getDeathState() != ALIVE)
         {
             // revive pet
+            // TODO: is this GetManaPercent or GetBaseManaPercent? (Is it a spell mana required check, or a "make sure there's enough left to fight" check?)
             if (PET_REVIVE > 0 && m_ai->GetManaPercent() >= 80 && m_ai->CastSpell(PET_REVIVE, *m_bot))
                 m_ai->TellMaster("reviving pet.");
         }
         else if (((float) pet->GetHealth() / (float) pet->GetMaxHealth()) < 0.5f)
         {
             // heal pet when health lower 50%
-            if (PET_MEND > 0 && !pet->getDeathState() != ALIVE && !pet->HasAura(PET_MEND, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 13 && m_ai->CastSpell(PET_MEND, *m_bot))
+            if (PET_MEND > 0 && !pet->getDeathState() != ALIVE && !pet->HasAura(PET_MEND, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 13 && m_ai->CastSpell(PET_MEND, *m_bot))
                 m_ai->TellMaster("healing pet.");
         }
         else if (pet->GetHappinessState() != HAPPY) // if pet is hungry

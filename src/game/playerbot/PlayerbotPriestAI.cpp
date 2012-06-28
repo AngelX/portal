@@ -224,7 +224,7 @@ CombatManeuverReturns PlayerbotPriestAI::DoNextCombatManeuver(Unit *pTarget)
     }
 
     //Not sure where this should go
-    if (PRAYER_OF_MENDING > 0 && pVictim == GetMaster() && GetMaster()->GetHealth() <= GetMaster()->GetMaxHealth() * 0.7 && !GetMaster()->HasAura(PRAYER_OF_MENDING, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 15)
+    if (PRAYER_OF_MENDING > 0 && pVictim == GetMaster() && GetMaster()->GetHealth() <= GetMaster()->GetMaxHealth() * 0.7 && !GetMaster()->HasAura(PRAYER_OF_MENDING, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 15)
         return CastSpell(PRAYER_OF_MENDING, GetMaster());
 
     // TODO: Prioritize group healing in some way. If 3 members (including master/self) should be healed, pick one of these:
@@ -267,11 +267,11 @@ CombatManeuverReturns PlayerbotPriestAI::DoNextCombatManeuver(Unit *pTarget)
     switch (spec)
     {
         case PRIEST_SPEC_HOLY:
-            if (HOLY_FIRE > 0 && !pTarget->HasAura(HOLY_FIRE, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 13)
+            if (HOLY_FIRE > 0 && !pTarget->HasAura(HOLY_FIRE, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 13)
                 return CastSpell(HOLY_FIRE, pTarget);
-            if (SMITE > 0 && m_ai->GetManaPercent() >= 17)
+            if (SMITE > 0 && m_ai->GetBaseManaPercent() >= 17)
                 return CastSpell(SMITE, pTarget);
-            //if (HOLY_NOVA > 0 && LastSpellHoly < 3 && dist <= ATTACK_DISTANCE && m_ai->GetManaPercent() >= 22)
+            //if (HOLY_NOVA > 0 && LastSpellHoly < 3 && dist <= ATTACK_DISTANCE && m_ai->GetBaseManaPercent() >= 22)
             //{
             //    //m_ai->TellMaster("I'm casting holy nova.");
             //    m_ai->CastSpell(HOLY_NOVA);
@@ -280,15 +280,15 @@ CombatManeuverReturns PlayerbotPriestAI::DoNextCombatManeuver(Unit *pTarget)
             break;
 
         case PRIEST_SPEC_SHADOW:
-            if (DEVOURING_PLAGUE > 0 && !pTarget->HasAura(DEVOURING_PLAGUE, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 28)
+            if (DEVOURING_PLAGUE > 0 && !pTarget->HasAura(DEVOURING_PLAGUE, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 28)
                 return CastSpell(DEVOURING_PLAGUE, pTarget);
-            if (VAMPIRIC_TOUCH > 0 && !pTarget->HasAura(VAMPIRIC_TOUCH, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 18)
+            if (VAMPIRIC_TOUCH > 0 && !pTarget->HasAura(VAMPIRIC_TOUCH, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 18)
                 return CastSpell(VAMPIRIC_TOUCH, pTarget);
-            if (SHADOW_WORD_PAIN > 0 && !pTarget->HasAura(SHADOW_WORD_PAIN, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 25)
+            if (SHADOW_WORD_PAIN > 0 && !pTarget->HasAura(SHADOW_WORD_PAIN, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 25)
                 return CastSpell(SHADOW_WORD_PAIN, pTarget);
-            if (MIND_BLAST > 0 && (!m_bot->HasSpellCooldown(MIND_BLAST)) && m_ai->GetManaPercent() >= 19)
+            if (MIND_BLAST > 0 && (!m_bot->HasSpellCooldown(MIND_BLAST)) && m_ai->GetBaseManaPercent() >= 19)
                 return CastSpell(MIND_BLAST, pTarget);
-            if (MIND_FLAY > 0 && m_ai->GetManaPercent() >= 10)
+            if (MIND_FLAY > 0 && m_ai->GetBaseManaPercent() >= 10)
             {
                 if (CastSpell(MIND_FLAY, pTarget))
                 {
@@ -298,39 +298,39 @@ CombatManeuverReturns PlayerbotPriestAI::DoNextCombatManeuver(Unit *pTarget)
             }
             if (SHADOWFIEND > 0) // TODO: && mana && isn't active
                 return CastSpell(SHADOWFIEND);
-            /*else if (MIND_SEAR > 0 && m_ai->GetAttackerCount() >= 3 && m_ai->GetManaPercent() >= 28)
+            /*else if (MIND_SEAR > 0 && m_ai->GetAttackerCount() >= 3 && m_ai->GetBaseManaPercent() >= 28)
             {
                 CastSpell(MIND_SEAR, pTarget);
                 m_ai->SetIgnoreUpdateTime(5);
                 return;
             }*/
-            if (SHADOWFORM == 0 && MIND_FLAY == 0 && SMITE > 0 && m_ai->GetManaPercent() >= 17) // low levels
+            if (SHADOWFORM == 0 && MIND_FLAY == 0 && SMITE > 0 && m_ai->GetBaseManaPercent() >= 17) // low levels
                 return CastSpell(SMITE, pTarget);
             break;
 
         case PRIEST_SPEC_DISCIPLINE:
-            if (POWER_INFUSION > 0 && m_ai->GetManaPercent() >= 16)
+            if (POWER_INFUSION > 0 && m_ai->GetBaseManaPercent() >= 16)
                 return CastSpell(POWER_INFUSION, GetMaster()); // TODO: just master?
-            //if (MASS_DISPEL > 0 && m_ai->GetManaPercent() >= 33)
+            //if (MASS_DISPEL > 0 && m_ai->GetBaseManaPercent() >= 33)
             //{
             //    //m_ai->TellMaster("I'm casting mass dispel");
             //    return CastSpell(MASS_DISPEL);
             //}
             if (INNER_FOCUS > 0 && !m_bot->HasAura(INNER_FOCUS, EFFECT_INDEX_0))
                 return CastSpell(INNER_FOCUS, m_bot);
-            if (PENANCE > 0 && m_ai->GetManaPercent() >= 16)
+            if (PENANCE > 0 && m_ai->GetBaseManaPercent() >= 16)
                 return CastSpell(PENANCE);
-            if (SMITE > 0 && m_ai->GetManaPercent() >= 17)
+            if (SMITE > 0 && m_ai->GetBaseManaPercent() >= 17)
                 return CastSpell(SMITE, pTarget);
             break;
     }
 
     // No spec due to low level OR no spell found yet
-    if (MIND_BLAST > 0 && (!m_bot->HasSpellCooldown(MIND_BLAST)) && m_ai->GetManaPercent() >= 19)
+    if (MIND_BLAST > 0 && (!m_bot->HasSpellCooldown(MIND_BLAST)) && m_ai->GetBaseManaPercent() >= 19)
         return CastSpell(MIND_BLAST, pTarget);
-    if (SHADOW_WORD_PAIN > 0 && !pTarget->HasAura(SHADOW_WORD_PAIN, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 25)
+    if (SHADOW_WORD_PAIN > 0 && !pTarget->HasAura(SHADOW_WORD_PAIN, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 25)
         return CastSpell(SHADOW_WORD_PAIN, pTarget);
-    if (MIND_FLAY > 0 && m_ai->GetManaPercent() >= 10)
+    if (MIND_FLAY > 0 && m_ai->GetBaseManaPercent() >= 10)
     {
         if (CastSpell(MIND_FLAY, pTarget))
         {
@@ -338,11 +338,11 @@ CombatManeuverReturns PlayerbotPriestAI::DoNextCombatManeuver(Unit *pTarget)
             return RETURN_CONTINUE;
         }
     }
-    if (SHADOWFORM == 0 && SMITE > 0 && m_ai->GetManaPercent() >= 17)
+    if (SHADOWFORM == 0 && SMITE > 0 && m_ai->GetBaseManaPercent() >= 17)
         return CastSpell(SMITE, pTarget);
 
     // definitely not out of mana yet
-    if (m_ai->GetManaPercent() >= 20)
+    if (m_ai->GetBaseManaPercent() >= 20)
     {
         m_ai->TellMaster("Couldn't find an appropriate spell.");
         return RETURN_NO_ACTION_UNKNOWN;
@@ -375,7 +375,7 @@ void PlayerbotPriestAI::DoNonCombatActions()
     Item* pItem = m_ai->FindDrink();
     Item* fItem = m_ai->FindBandage();
 
-    if (pItem != NULL && m_ai->GetManaPercent() < 30)
+    if (pItem != NULL && m_ai->GetBaseManaPercent() < 30)
     {
         m_ai->TellMaster("I could use a drink.");
         m_ai->UseItem(pItem);

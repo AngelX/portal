@@ -120,15 +120,15 @@ CombatManeuverReturns PlayerbotMageAI::DoNextCombatManeuver(Unit *pTarget)
     switch (spec)
     {
         case MAGE_SPEC_FROST:
-            if (ICY_VEINS > 0 && !m_bot->HasAura(ICY_VEINS, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 3)
+            if (ICY_VEINS > 0 && !m_bot->HasAura(ICY_VEINS, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 3)
                 return CastSpell(ICY_VEINS, m_bot);
             if (ICE_BLOCK > 0 && pVictim == m_bot && !m_bot->HasAura(ICE_BLOCK, EFFECT_INDEX_0) && m_ai->GetHealthPercent() < 30)
                 return CastSpell(ICE_BLOCK, m_bot);
-            if (ICE_BARRIER > 0 && pVictim == m_bot && !m_bot->HasAura(ICE_BARRIER, EFFECT_INDEX_0) && m_ai->GetHealthPercent() < 50 && m_ai->GetManaPercent() >= 30)
+            if (ICE_BARRIER > 0 && pVictim == m_bot && !m_bot->HasAura(ICE_BARRIER, EFFECT_INDEX_0) && m_ai->GetHealthPercent() < 50 && m_ai->GetBaseManaPercent() >= 30)
                 return CastSpell(ICE_BARRIER, m_bot);
-            if (DEEP_FREEZE > 0 && pTarget->HasAura(AURA_STATE_FROZEN, EFFECT_INDEX_0) && !pTarget->HasAura(DEEP_FREEZE, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 9)
+            if (DEEP_FREEZE > 0 && pTarget->HasAura(AURA_STATE_FROZEN, EFFECT_INDEX_0) && !pTarget->HasAura(DEEP_FREEZE, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 9)
                 return CastSpell(DEEP_FREEZE, pTarget);
-            if (BLIZZARD > 0 && m_ai->GetAttackerCount() >= 5 && m_ai->GetManaPercent() >= 89)
+            if (BLIZZARD > 0 && m_ai->GetAttackerCount() >= 5 && m_ai->GetBaseManaPercent() >= 89)
             {
                 if (CastSpell(BLIZZARD, pTarget))
                 {
@@ -136,57 +136,57 @@ CombatManeuverReturns PlayerbotMageAI::DoNextCombatManeuver(Unit *pTarget)
                     return RETURN_CONTINUE;
                 }
             }
-            if (CONE_OF_COLD > 0 && dist <= ATTACK_DISTANCE && !pTarget->HasAura(CONE_OF_COLD, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 35)
+            if (CONE_OF_COLD > 0 && dist <= ATTACK_DISTANCE && !pTarget->HasAura(CONE_OF_COLD, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 35)
                 return CastSpell(CONE_OF_COLD, pTarget);
-            if (FROSTBOLT > 0 && !pTarget->HasAura(FROSTBOLT, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 16)
+            if (FROSTBOLT > 0 && !pTarget->HasAura(FROSTBOLT, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 16)
                 return CastSpell(FROSTBOLT, pTarget);
-            if (FROST_WARD > 0 && !m_bot->HasAura(FROST_WARD, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 19)
+            if (FROST_WARD > 0 && !m_bot->HasAura(FROST_WARD, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 19)
                 return CastSpell(FROST_WARD, m_bot);
-            if (FROST_NOVA > 0 && dist <= ATTACK_DISTANCE && !pTarget->HasAura(FROST_NOVA, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 10)
+            if (FROST_NOVA > 0 && dist <= ATTACK_DISTANCE && !pTarget->HasAura(FROST_NOVA, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 10)
                 return CastSpell(FROST_NOVA, pTarget);
-            if (ICE_LANCE > 0 && m_ai->GetManaPercent() >= 7)
+            if (ICE_LANCE > 0 && m_ai->GetBaseManaPercent() >= 7)
                 return CastSpell(ICE_LANCE, pTarget);
-            if (SUMMON_WATER_ELEMENTAL > 0 && m_ai->GetManaPercent() >= 16)
+            if (SUMMON_WATER_ELEMENTAL > 0 && m_ai->GetBaseManaPercent() >= 16)
                 return CastSpell(SUMMON_WATER_ELEMENTAL);
             if (COLD_SNAP > 0)
                 return CastSpell(COLD_SNAP, m_bot);
 
-            if (FROSTBOLT > 0 && m_ai->GetManaPercent() >= 16)
+            if (FROSTBOLT > 0 && m_ai->GetBaseManaPercent() >= 16)
                 return CastSpell(FROSTBOLT, pTarget);
             break;
 
         case MAGE_SPEC_FIRE:
-            if (FIRE_WARD > 0 && !m_bot->HasAura(FIRE_WARD, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 3)
+            if (FIRE_WARD > 0 && !m_bot->HasAura(FIRE_WARD, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 3)
                 return CastSpell(FIRE_WARD, m_bot);
             if (COMBUSTION > 0 && !m_bot->HasAura(COMBUSTION, EFFECT_INDEX_0))
                 return CastSpell(COMBUSTION, m_bot);
-            if (FIREBALL > 0 && m_ai->GetManaPercent() >= 23)
+            if (FIREBALL > 0 && m_ai->GetBaseManaPercent() >= 23)
                 return CastSpell(FIREBALL, pTarget);
-            if (FIRE_BLAST > 0 && m_ai->GetManaPercent() >= 25)
+            if (FIRE_BLAST > 0 && m_ai->GetBaseManaPercent() >= 25)
                 return CastSpell(FIRE_BLAST, pTarget);
-            if (FLAMESTRIKE > 0 && m_ai->GetManaPercent() >= 35)
+            if (FLAMESTRIKE > 0 && m_ai->GetBaseManaPercent() >= 35)
                 return CastSpell(FLAMESTRIKE, pTarget);
-            if (SCORCH > 0 && m_ai->GetManaPercent() >= 10)
+            if (SCORCH > 0 && m_ai->GetBaseManaPercent() >= 10)
                 return CastSpell(SCORCH, pTarget);
-            if (PYROBLAST > 0 && !pTarget->HasAura(PYROBLAST, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 27)
+            if (PYROBLAST > 0 && !pTarget->HasAura(PYROBLAST, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 27)
                 return CastSpell(PYROBLAST, pTarget);
-            if (BLAST_WAVE > 0 && m_ai->GetAttackerCount() >= 3 && dist <= ATTACK_DISTANCE && m_ai->GetManaPercent() >= 34)
+            if (BLAST_WAVE > 0 && m_ai->GetAttackerCount() >= 3 && dist <= ATTACK_DISTANCE && m_ai->GetBaseManaPercent() >= 34)
                 return CastSpell(BLAST_WAVE, pTarget);
-            if (DRAGONS_BREATH > 0 && dist <= ATTACK_DISTANCE && m_ai->GetManaPercent() >= 37)
+            if (DRAGONS_BREATH > 0 && dist <= ATTACK_DISTANCE && m_ai->GetBaseManaPercent() >= 37)
                 return CastSpell(DRAGONS_BREATH, pTarget);
-            if (LIVING_BOMB > 0 && !pTarget->HasAura(LIVING_BOMB, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 27)
+            if (LIVING_BOMB > 0 && !pTarget->HasAura(LIVING_BOMB, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 27)
                 return CastSpell(LIVING_BOMB, pTarget);
-            if (FROSTFIRE_BOLT > 0 && !pTarget->HasAura(FROSTFIRE_BOLT, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 14)
+            if (FROSTFIRE_BOLT > 0 && !pTarget->HasAura(FROSTFIRE_BOLT, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 14)
                 return CastSpell(FROSTFIRE_BOLT, pTarget);
 
-            if (FIREBALL > 0 && m_ai->GetManaPercent() >= 23)
+            if (FIREBALL > 0 && m_ai->GetBaseManaPercent() >= 23)
                 return CastSpell(FIREBALL, pTarget);
             break;
 
         case MAGE_SPEC_ARCANE:
-            if (ARCANE_POWER > 0 && m_ai->GetManaPercent() >= 37)
+            if (ARCANE_POWER > 0 && m_ai->GetBaseManaPercent() >= 37)
                 return CastSpell(ARCANE_POWER, pTarget);
-            if (ARCANE_MISSILES > 0 && m_ai->GetManaPercent() >= 37)
+            if (ARCANE_MISSILES > 0 && m_ai->GetBaseManaPercent() >= 37)
             {
                 if (CastSpell(ARCANE_MISSILES, pTarget))
                 {
@@ -194,34 +194,34 @@ CombatManeuverReturns PlayerbotMageAI::DoNextCombatManeuver(Unit *pTarget)
                     return RETURN_CONTINUE;
                 }
             }
-            if (ARCANE_EXPLOSION > 0 && m_ai->GetAttackerCount() >= 3 && dist <= ATTACK_DISTANCE && m_ai->GetManaPercent() >= 27)
+            if (ARCANE_EXPLOSION > 0 && m_ai->GetAttackerCount() >= 3 && dist <= ATTACK_DISTANCE && m_ai->GetBaseManaPercent() >= 27)
                 return CastSpell(ARCANE_EXPLOSION, pTarget);
-            if (COUNTERSPELL > 0 && pTarget->IsNonMeleeSpellCasted(true) && m_ai->GetManaPercent() >= 9)
+            if (COUNTERSPELL > 0 && pTarget->IsNonMeleeSpellCasted(true) && m_ai->GetBaseManaPercent() >= 9)
                 return CastSpell(COUNTERSPELL, pTarget);
-            if (SLOW > 0 && !pTarget->HasAura(SLOW, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 12)
+            if (SLOW > 0 && !pTarget->HasAura(SLOW, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 12)
                 return CastSpell(SLOW, pTarget);
-            if (ARCANE_BARRAGE > 0 && m_ai->GetManaPercent() >= 27)
+            if (ARCANE_BARRAGE > 0 && m_ai->GetBaseManaPercent() >= 27)
                 return CastSpell(ARCANE_BARRAGE, pTarget);
-            if (ARCANE_BLAST > 0 && m_ai->GetManaPercent() >= 8)
+            if (ARCANE_BLAST > 0 && m_ai->GetBaseManaPercent() >= 8)
                 return CastSpell(ARCANE_BLAST, pTarget);
-            if (MIRROR_IMAGE > 0 && m_ai->GetManaPercent() >= 10)
+            if (MIRROR_IMAGE > 0 && m_ai->GetBaseManaPercent() >= 10)
                 return CastSpell(MIRROR_IMAGE);
-            if (MANA_SHIELD > 0 && m_ai->GetHealthPercent() < 70 && pVictim == m_bot && !m_bot->HasAura(MANA_SHIELD, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 8)
+            if (MANA_SHIELD > 0 && m_ai->GetHealthPercent() < 70 && pVictim == m_bot && !m_bot->HasAura(MANA_SHIELD, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 8)
                 return CastSpell(MANA_SHIELD, m_bot);
 
-            if (FIREBALL > 0 && m_ai->GetManaPercent() >= 23)
+            if (FIREBALL > 0 && m_ai->GetBaseManaPercent() >= 23)
                 return CastSpell(FIREBALL, pTarget);
             break;
     }
 
     // No spec due to low level OR no spell found yet
-    if (FROSTBOLT > 0 && !pTarget->HasAura(FROSTBOLT, EFFECT_INDEX_0) && m_ai->GetManaPercent() >= 16)
+    if (FROSTBOLT > 0 && !pTarget->HasAura(FROSTBOLT, EFFECT_INDEX_0) && m_ai->GetBaseManaPercent() >= 16)
         return CastSpell(FROSTBOLT, pTarget);
-    if (FIREBALL > 0 && m_ai->GetManaPercent() >= 23) // Very low levels
+    if (FIREBALL > 0 && m_ai->GetBaseManaPercent() >= 23) // Very low levels
         return CastSpell(FIREBALL, pTarget);
 
     // definitely not OOM yet
-    if (m_ai->GetManaPercent() >= 25)
+    if (m_ai->GetBaseManaPercent() >= 23)
     {
         m_ai->TellMaster("Couldn't find an appropriate spell.");
         return RETURN_NO_ACTION_UNKNOWN;
@@ -301,7 +301,7 @@ void PlayerbotMageAI::DoNonCombatActions()
 
     // TODO: The beauty of a mage is not only its ability to supply itself with water, but to share its water
     // So, conjure at *least* 1.25 stacks, ready to trade a stack and still have some left for self
-    if (pItem == NULL && CONJURE_WATER && m_ai->GetBaseManaPercent() >= 48)
+    if (pItem == NULL && CONJURE_WATER && m_ai->GetManaPercent() >= 48) // Not BaseManaPercent - we want to be (somewhat) ready for combat
     {
         if (m_ai->CastSpell(CONJURE_WATER, *m_bot))
         {
@@ -319,7 +319,7 @@ void PlayerbotMageAI::DoNonCombatActions()
 
     pItem = m_ai->FindFood();
 
-    if (pItem == NULL && CONJURE_FOOD && m_ai->GetBaseManaPercent() >= 48)
+    if (pItem == NULL && CONJURE_FOOD && m_ai->GetManaPercent() >= 48) // Not BaseManaPercent - we want to be (somewhat) ready for combat
     {
         if (m_ai->CastSpell(CONJURE_FOOD, *m_bot))
         {
